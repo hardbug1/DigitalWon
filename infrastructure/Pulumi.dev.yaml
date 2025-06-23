@@ -1,0 +1,5 @@
+config:
+  aws:region: us-east-1
+  krwx-stablecoin:environment: dev
+  krwx-stablecoin:db-password:
+    secure: AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA
