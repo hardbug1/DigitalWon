@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from '../auth/user.entity';
 
 @Entity('wallets')
 export class Wallet {
@@ -13,6 +14,10 @@ export class Wallet {
 
   @Column({ nullable: true })
   userId: string;
+
+  @ManyToOne(() => User, (user) => user.wallets, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
   @Column({ default: true })
   isActive: boolean;

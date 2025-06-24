@@ -313,7 +313,7 @@ export class AuthService {
    * @returns 리프레시 토큰
    */
   refreshToken(userId: string): string {
-    const payload: JwtPayload = { sub: userId, type: 'refresh' };
+    const payload: JwtPayload = { sub: userId, email: '', type: 'refresh' };
     return this.jwtService.sign(payload, { expiresIn: '7d' });
   }
 

@@ -201,7 +201,7 @@ export class BinancePayController {
       success: true,
       data: {
         currencies,
-        minAmounts: currencies.reduce((acc, currency) => {
+        minAmounts: currencies.reduce((acc: Record<string, number>, currency) => {
           acc[currency] = this.binancePayService.getMinOrderAmount(currency);
           return acc;
         }, {}),

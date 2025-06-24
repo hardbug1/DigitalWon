@@ -8,6 +8,7 @@ import {
   JoinColumn
 } from 'typeorm';
 import { Wallet } from '../../wallet/wallet.entity';
+import { User } from '../../auth/user.entity';
 
 export enum PaymentStatus {
   PENDING = 'pending',
@@ -48,6 +49,13 @@ export class Payment {
 
   @Column({ nullable: true })
   externalId: string;
+
+  @Column({ nullable: true })
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.payments, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
   @ManyToOne(() => Wallet, wallet => wallet.id)
   @JoinColumn({ name: 'fromWalletId' })

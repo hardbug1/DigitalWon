@@ -56,8 +56,8 @@ export class BinancePayService {
     private readonly configService: ConfigService,
     private readonly loggerService: LoggerService,
   ) {
-    this.apiKey = this.configService.get<string>('BINANCE_PAY_API_KEY');
-    this.secretKey = this.configService.get<string>('BINANCE_PAY_SECRET_KEY');
+    this.apiKey = this.configService.get<string>('BINANCE_PAY_API_KEY') || '';
+    this.secretKey = this.configService.get<string>('BINANCE_PAY_SECRET_KEY') || '';
     this.baseUrl = this.configService.get<string>('BINANCE_PAY_BASE_URL', 'https://bpay.binanceapi.com');
 
     this.validateConfig();
@@ -341,7 +341,7 @@ export class BinancePayService {
    * @returns 최소 주문 금액
    */
   getMinOrderAmount(currency: string): number {
-    const minAmounts = {
+    const minAmounts: Record<string, number> = {
       USDT: 1,
       BUSD: 1,
       BNB: 0.01,

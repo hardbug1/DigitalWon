@@ -43,7 +43,7 @@ export class NotificationService {
     this.initializeTwilioClient();
     this.fromEmail = this.configService.get('FROM_EMAIL', 'noreply@krwx.com');
     this.fromName = this.configService.get('FROM_NAME', 'KRWX Stablecoin');
-    this.twilioPhoneNumber = this.configService.get('TWILIO_PHONE_NUMBER');
+    this.twilioPhoneNumber = this.configService.get('TWILIO_PHONE_NUMBER') || '';
   }
 
   /**
@@ -60,7 +60,7 @@ export class NotificationService {
       },
     };
 
-    this.emailTransporter = nodemailer.createTransporter(smtpConfig);
+    this.emailTransporter = nodemailer.createTransport(smtpConfig);
   }
 
   /**

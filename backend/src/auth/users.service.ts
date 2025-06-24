@@ -130,7 +130,7 @@ export class UsersService {
     await this.userRepository.update(id, { 
       password: hashedPassword,
       loginAttempts: 0,
-      lockoutUntil: null,
+      lockoutUntil: undefined,
     });
 
     this.loggerService.log(
@@ -166,8 +166,8 @@ export class UsersService {
     };
 
     if (!enabled) {
-      updateData.twoFactorSecret = null;
-      updateData.twoFactorBackupCodes = null;
+      updateData.twoFactorSecret = undefined;
+      updateData.twoFactorBackupCodes = undefined;
     }
 
     await this.userRepository.update(id, updateData);
@@ -210,7 +210,7 @@ export class UsersService {
   async resetLoginAttempts(id: string): Promise<void> {
     await this.userRepository.update(id, {
       loginAttempts: 0,
-      lockoutUntil: null,
+      lockoutUntil: undefined,
       lastLoginAt: new Date(),
     });
   }
@@ -245,7 +245,7 @@ export class UsersService {
   async verifyEmail(id: string): Promise<void> {
     await this.userRepository.update(id, {
       isEmailVerified: true,
-      emailVerificationToken: null,
+      emailVerificationToken: undefined,
       status: UserStatus.ACTIVE,
     });
 
@@ -273,7 +273,7 @@ export class UsersService {
   async verifyPhone(id: string): Promise<void> {
     await this.userRepository.update(id, {
       isPhoneVerified: true,
-      phoneVerificationToken: null,
+      phoneVerificationToken: undefined,
     });
 
     this.loggerService.log(
@@ -300,7 +300,7 @@ export class UsersService {
       updateData.kycSubmittedAt = new Date();
     } else if (kycUpdate.kycStatus === KycStatus.APPROVED) {
       updateData.kycApprovedAt = new Date();
-      updateData.kycRejectionReason = null;
+      updateData.kycRejectionReason = undefined;
     } else if (kycUpdate.kycStatus === KycStatus.REJECTED) {
       updateData.kycRejectionReason = kycUpdate.kycRejectionReason;
     }
